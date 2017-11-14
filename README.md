@@ -3,7 +3,9 @@ GimmeLog analyzes all of the requests types coming to your websever and counts h
 
 # Getting Started
 
-Have your log files in the same directory as the program, the format of the log files: 
+Have your log files in the same directory as the program, 
+
+The format of the log files: 
 
 ```LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined```
 
