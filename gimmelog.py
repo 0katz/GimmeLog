@@ -18,7 +18,7 @@ def menu():
     if choice == "2":
         fail_menu()
     if choice == "q":
-        print("GoodBye!")
+        print("Papa Bless!")
         exit
     else:
         menu()
