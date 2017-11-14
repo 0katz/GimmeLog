@@ -179,8 +179,7 @@ def invalid_Apng():
         if re.findall(r'(./apng/assembler/data).*(\s\b404\b\s)', line): 
             counter += 1 # add one to the counter if the match exist.             
     print("Total failed requests to /apng/assembler/data: ", counter)
-    
-    
+   
 def main():
         
     parser = ArgumentParser()
@@ -211,8 +210,7 @@ def main():
         else:
             print("-ERROR- Usage: " + sys.argv[0] + "--default or -d "+" <file name>")
 
-
 if __name__ == "__main__":
     main()
-    #menu()
+    
     
