@@ -44,11 +44,6 @@ def loadFiles():
     access_3.close()   
     return line_3 
 
-
-
-
-
-
 ######################## Successful #######################  
       
 def succes_menu():
