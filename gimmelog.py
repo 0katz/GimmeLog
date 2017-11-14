@@ -206,7 +206,8 @@ def main():
     # fetch sys.argv[1] but without the first character
         option = sys.argv[1][1:]
         if option == 'd':
-            print("Skip to... How many total requests (Code 200)")            
+            print("Skip to... How many total requests (Code 200)")
+            total_200()
         else:
             print("-ERROR- Usage: " + sys.argv[0] + "--default or -d "+" <file name>")
 
