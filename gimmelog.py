@@ -2,10 +2,6 @@ import sys
 import re 
 import os 
 from argparse import ArgumentParser
-
-
-############# THE FUNCTION MAIN DOESN'T Work up here because the other functions need be lodead first. #########################
-
                 
 def menu():
     line1 = "Apache Log Analyser - Main Menu"
@@ -33,20 +29,20 @@ def loadFiles():
     access_0.close() # in order to work with files you need to close them. 
     return line_0 # returns the contents of the file.
     
-    access_1 = open('access_log.1','r') # read file 
-    line_1 = access_1.readlines() #readlines() reads the text line per line and converts it into a list
-    access_1.close() # in order to work with files you need to close them.
-    return line_1 # returns the contents of the file.
-     
-    access_2 = open('access_log.2','r') # read file 
-    line_2 = access_2.readlines() #readlines() read the text line per line and converts it into a list
-    access_2.close()    # in order to work with files you need to close them.
-    return line_2 #returns the contents of the file
+    access_1 = open('access_log.1','r')
+    line_1 = access_1.readlines() 
+    access_1.close() 
+    return line_1 
+  
+    access_2 = open('access_log.2','r') 
+    line_2 = access_2.readlines() 
+    access_2.close()    
+    return line_2 
     
-    access_3 = open('access_log.3','r') # read file 
-    line_3 = access_3.readlines()   #readlines() read the text line per line and converts it into a list
-    access_3.close()    # in order to work with files you need to close them.
-    return line_3 # returns the contents of the file. 
+    access_3 = open('access_log.3','r') 
+    line_3 = access_3.readlines()   
+    access_3.close()   
+    return line_3 
 
 
 
