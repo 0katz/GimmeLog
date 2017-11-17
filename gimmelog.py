@@ -2,14 +2,14 @@ import sys
 import re 
 import os 
 from argparse import ArgumentParser
-                
+
 def menu():
     line1 = "Apache Log Analyser - Main Menu"
     print(line1)
 #for each word in the variable print = 
 #end = '' will print it horizontally
     for letter in line1:
-        print('=',end='')
+        print('=',end ='')
     print("\n1) Successful Requests\n2) Failed Requests\nq) Quit")
     choice = input("Select an option [1-2] q to quit: ")
     
@@ -18,7 +18,7 @@ def menu():
     if choice == "2":
         fail_menu()
     if choice == "q":
-        print("Papa Bless!")
+        print("GoodBye!")
         exit
     else:
         menu()
@@ -29,20 +29,20 @@ def loadFiles():
     access_0.close() # in order to work with files you need to close them. 
     return line_0 # returns the contents of the file.
     
-    access_1 = open('access_log.1','r')
+    access_1 = open('access_log.1','r') 
     line_1 = access_1.readlines() 
     access_1.close() 
     return line_1 
   
-    access_2 = open('access_log.2','r') 
-    line_2 = access_2.readlines() 
-    access_2.close()    
-    return line_2 
+    access_2 = open('access_log.2','r') # read file 
+    line_2 = access_2.readlines() #readlines() read the text line per line and converts it into a list
+    access_2.close()    # in order to work with files you need to close them.
+    return line_2 #returns the contents of the file
     
-    access_3 = open('access_log.3','r') 
-    line_3 = access_3.readlines()   
-    access_3.close()   
-    return line_3 
+    access_3 = open('access_log.3','r') # read file 
+    line_3 = access_3.readlines()   #readlines() read the text line per line and converts it into a list
+    access_3.close()    # in order to work with files you need to close them.
+    return line_3 # returns the contents of the file. 
 
 ######################## Successful #######################  
       
@@ -115,7 +115,6 @@ def fail_menu():
         print("Returning to Main Menu")
         menu()
     else: 
-        print("Invalid option")
         fail_menu()
 
 ######################## Failed #######################  
@@ -152,6 +151,8 @@ def failed_Request():
         if re.findall(r"\s\b416\b\s", line):
         #if " 416 " in line: 
             counter_416 += 1
+    
+    print("=====================================")
     print("Total 404 request: ", counter_404)
     print("Total 400 request: ", counter_400)    
     print("Total 500 request: ", counter_500)
@@ -159,6 +160,7 @@ def failed_Request():
     print("Total 405 request: ", counter_405)
     print("Total 408 request: ", counter_408)
     print("Total 416 request: ", counter_416)
+    print("=====================================")
     
 def invalid_WP():
     load = loadFiles()
@@ -179,36 +181,22 @@ def invalid_Apng():
         if re.findall(r'(./apng/assembler/data).*(\s\b404\b\s)', line): 
             counter += 1 # add one to the counter if the match exist.             
     print("Total failed requests to /apng/assembler/data: ", counter)
-   
-def main():
-        
+    
+def main(): 
     parser = ArgumentParser()
     parser.add_argument("-d", "--default", dest="myFile", help="Open specified file")
     args = parser.parse_args()
     myFile = args.myFile
     
-    text = open(myFile)
-    if len(sys.argv) == 1:
+    if myFile:
+        text = open(myFile)
+        counter = 0 # set a counter to 0 
+        for line in text: #for each line in text if the " 200 " is found add 1 to the counter and repeat until done. 
+            if re.findall(r"\s\b200\b\s", line):
+                counter += 1
+        print("Total of (Status Code) 200 request:", counter)
+    else:
         menu()
-        # Length of argument must be greater 2 or else print Usage and exit
-    if len(sys.argv) < 2:
-        print("Usage: Python3 " + sys.argv[0] + " <filename>")  
-        sys.exit()
-    if sys.argv[1].startswith('--'):
-    # fetch sys.argv[1] but without the first two characters
-        option = sys.argv[1][2:]
-        if option =='default':
-            total_200()
-        else:
-            print("-ERROR- Usage: " + sys.argv[0] + "--default or -d "+" <file name>")
-    elif sys.argv[1].startswith('-'):
-    # fetch sys.argv[1] but without the first character
-        option = sys.argv[1][1:]
-        if option == 'd':
-            print("Skip to... How many total requests (Code 200)")
-            total_200()
-        else:
-            print("-ERROR- Usage: " + sys.argv[0] + "--default or -d "+" <file name>")
 
 if __name__ == "__main__":
     main()
