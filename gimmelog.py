@@ -4,11 +4,9 @@ import os
 from argparse import ArgumentParser
 
 def menu():
-    line1 = "Apache Log Analyser - Main Menu"
+    line1 = "\nApache Log Analyser - Main Menu"
     print(line1)
-#for each word in the variable print = 
-#end = '' will print it horizontally
-    for letter in line1:
+    for letter in line1: #for each word in the variable print = end = '' will print it horizontally
         print('=',end ='')
     print("\n1) Successful Requests\n2) Failed Requests\nq) Quit")
     choice = input("Select an option [1-2] q to quit: ")
@@ -20,8 +18,7 @@ def menu():
     if choice == "q":
         print("GoodBye!")
         exit
-    else:
-        menu()
+    #if __name__ == "__main__": handles the "else" 
         
 def loadFiles():
     access_0 = open('access_log','r') # read file 
@@ -29,32 +26,30 @@ def loadFiles():
     access_0.close() # in order to work with files you need to close them. 
     return line_0 # returns the contents of the file.
     
-    access_1 = open('access_log.1','r') 
+    access_1 = open('access_log.1','r')  
     line_1 = access_1.readlines() 
-    access_1.close() 
+    access_1.close()
     return line_1 
-  
-    access_2 = open('access_log.2','r') # read file 
-    line_2 = access_2.readlines() #readlines() read the text line per line and converts it into a list
-    access_2.close()    # in order to work with files you need to close them.
-    return line_2 #returns the contents of the file
+     
+    access_2 = open('access_log.2','r') 
+    line_2 = access_2.readlines()
+    access_2.close()    
+    return line_2 
     
-    access_3 = open('access_log.3','r') # read file 
-    line_3 = access_3.readlines()   #readlines() read the text line per line and converts it into a list
-    access_3.close()    # in order to work with files you need to close them.
-    return line_3 # returns the contents of the file. 
+    access_3 = open('access_log.3','r')
+    line_3 = access_3.readlines()   
+    access_3.close()  
+    return line_3
 
 ######################## Successful #######################  
       
 def succes_menu():
-    line1 = "Apache Log Analyser - Successful Requests Menu"
-#for each word in the variable print = 
-#end = '' will print it horizontally
+    
+    line1 = "\nApache Log Analyser - Successful Requests Menu\n"
     print(line1)
-    for letter in line1:
-        print('=',end='')
-        
-    print("\n1) How many total requests (Code 200)\n2) How many requests from Seneca (IPs starting with 142.204)\n3) How many requests for isomaster-1.3.13.tar.bz2\nq) Return to Main Menu")
+    for letter in line1: #for each word in the variable print =  end = '' will print it horizontally
+        print('=',end='')      
+    print("\n1) How many total requests (Code 200)\n2) How many requests from Seneca (IPs starting with 142.204)\n3) How many requests for isomaster-1.3.13.tar.bz2\nq) Return to Main Menu\n")
     
     choice = input("Select an option [1-3] q to quit:")
     
@@ -70,12 +65,12 @@ def succes_menu():
         succes_menu()
         
 def total_200():
-    load = loadFiles()     
+    load = loadFiles()   # Calls the function loadFiles and stores it in memory for that function and stores it into a variable. 
     counter = 0 # set a counter to 0 
     for line in load: #for each line in load if the " 200 " is found add 1 to the counter and repeat until done. 
        if re.findall(r"\s\b200\b\s", line):
            counter += 1
-    print("Total of (Status Code) 200 request:", counter)
+    print("\nTotal of (Status Code) 200 request:", counter)
 
 def senIP():
     load = loadFiles()
@@ -83,17 +78,15 @@ def senIP():
     for line in load:
         if re.findall(r"\b142.204\b", line):
             counter += 1
-    print("Total of Requests from 142.204:",counter)
+    print("\nTotal of Requests from 142.204:",counter)
     
 def isoMaster():
     load = loadFiles()
-    
-    counter = 0 
-    
+    counter = 0 #creates a counter to increment from starting from 0
     for line in load:
-        if re.findall(r"\bisomaster-1.3.13.tar.bz2\b", line):
-            counter += 1
-    print("Total requests to isomaster-1.3.13.tar.bz2:",counter)
+        if re.findall(r"\bisomaster-1.3.13.tar.bz2\b", line): #finds all the requests that contain what is inside \b \b it will not look further to the rest of strings.
+            counter += 1 #increment counter by one each time the condition is met. 
+    print("\nTotal requests to isomaster-1.3.13.tar.bz2:",counter)
     
 ######################## Successful ####################### 
 
@@ -102,9 +95,9 @@ def fail_menu():
     print(line1)
     for letter in line1:
         print('=',end='')
-    print("\n1) How many total failed requests (Codes 404, 400, 500, 403, 405, 408, 416)\n2) How many invalid requests for wp-login.php\n3) List the filenames for failed requests for files in /apng/assembler/data\nq) Return to Main Menu")
+    print("\n1) How many total failed requests (Codes 404, 400, 500, 403, 405, 408, 416)\n2) How many invalid requests for wp-login.php\n3) List the filenames for failed requests for files in /apng/assembler/data\nq) Return to Main Menu\n")
     
-    choice = input()
+    choice = input("Select an option [1-3] q to go back:")
     if choice == "1":
         failed_Request()
     if choice == "2":
@@ -112,7 +105,6 @@ def fail_menu():
     if choice == "3":
         invalid_Apng()
     if choice == "q":
-        print("Returning to Main Menu")
         menu()
     else: 
         fail_menu()
@@ -120,8 +112,8 @@ def fail_menu():
 ######################## Failed #######################  
 
 def failed_Request():
-    load = loadFiles()
-    counter_404 = 0
+    load = loadFiles() 
+    counter_404 = 0 
     counter_400 = 0 
     counter_500 = 0 
     counter_403 = 0 
@@ -152,7 +144,7 @@ def failed_Request():
         #if " 416 " in line: 
             counter_416 += 1
     
-    print("=====================================")
+    print("\n=====================================")
     print("Total 404 request: ", counter_404)
     print("Total 400 request: ", counter_400)    
     print("Total 500 request: ", counter_500)
@@ -160,7 +152,9 @@ def failed_Request():
     print("Total 405 request: ", counter_405)
     print("Total 408 request: ", counter_408)
     print("Total 416 request: ", counter_416)
-    print("=====================================")
+    print("=====================================\n")
+
+   
     
 def invalid_WP():
     load = loadFiles()
@@ -170,7 +164,7 @@ def invalid_WP():
         #.* = any number of anything \s = space \bword\b = search word only avoids wording or words  
         if re.findall(r'(./wp-login.php).*(\s\b404\b\s)', line): 
             counter += 1 # add one to the counter if the match exist.             
-    print("Total failed requests to wp-login.php: ", counter)
+    print("\nTotal failed requests to wp-login.php: ", counter, "\n")
 
 def invalid_Apng():
     load = loadFiles()
@@ -180,9 +174,10 @@ def invalid_Apng():
         #.* = any number of anything \s = space \bword\b = search word only avoids wording or words  
         if re.findall(r'(./apng/assembler/data).*(\s\b404\b\s)', line): 
             counter += 1 # add one to the counter if the match exist.             
-    print("Total failed requests to /apng/assembler/data: ", counter)
+    print("\nTotal failed requests to /apng/assembler/data: ", counter, "\n")
     
-def main(): 
+def main():
+        
     parser = ArgumentParser()
     parser.add_argument("-d", "--default", dest="myFile", help="Open specified file")
     args = parser.parse_args()
@@ -194,7 +189,7 @@ def main():
         for line in text: #for each line in text if the " 200 " is found add 1 to the counter and repeat until done. 
             if re.findall(r"\s\b200\b\s", line):
                 counter += 1
-        print("Total of (Status Code) 200 request:", counter)
+        print("\nTotal of (Status Code) 200 request:", counter, "\n")
     else:
         menu()
 
