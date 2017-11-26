@@ -1,7 +1,6 @@
 import sys
 import re 
 import os 
-import argparse
 
 global OutContent 
 OutContent = ""
@@ -43,17 +42,12 @@ def succes_menu(arg, OutContent):
     if choice == "3":
         isoMaster(arg, OutContent)
     if choice == "q":
-        exit
+        menu(arg, OutContent)
     else:
         succes_menu(arg, OutContent)
         
 def total_200(arg, OutContent):
-    #myfile = open(arg, "r")
-    #fileContent = myfile.readlines()
-    #myfile.close()
-    #OutContent = OutContent + fileContent
-
-            # Calls the function loadFiles and stores it in memory for that function and stores it into a variable. 
+  
     counter = 0 # set a counter to 0 
     for line in OutContent or allFileContents: #for each line in load if the " 200 " is found add 1 to the counter and repeat until done. 
        if re.findall(r"\s\b200\b\s", line):
@@ -161,26 +155,28 @@ def invalid_Apng(arg, OutContent):
     print("\nTotal failed requests to /apng/assembler/data: ", counter, "\n")
     
 def main():
-    allFileContents = "" 
+    
+    if len(sys.argv)== 1: 
+        sys.exit("No arguments passed")
+    
     script = sys.argv[0]
     action = sys.argv[1]
-    filenames = sys.argv[2:]
-    noargfile = sys.argv[1:]
+    filenames = sys.argv[1:]
     OutContent = filenames or noargfile
     
     #Load files with arguments -d & --default
     print("Loading Files....", sys.argv[1:])
 
     for arg in filenames:
+        
         try:
             myfile = open(arg, "r")
             fileContent = myfile.readlines()
             myfile.close()
             OutContent = OutContent + fileContent
             
-            if len(sys.argv) ==1:
-                print("No arguments given")
-                sys.exit()
+            if filenames:
+                menu(arg,OutContent)
             if action == '--default':
                 counter = 0 # set a counter to 0 
                 for line in OutContent: #for each line in load if the " 200 " is found add 1 to the counter and repeat until done. 
@@ -193,9 +189,6 @@ def main():
                     if re.findall(r"\s\b200\b\s", line):
                         counter += 1
                 print("\nTotal of (Status Code) 200 request:", counter)
-            elif action == '-n':
-                menu(arg, OutContent)
-            
         except OSError:
            print("File could not be opened " + filenames)
     
