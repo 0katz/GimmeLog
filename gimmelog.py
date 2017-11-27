@@ -2,11 +2,9 @@ import sys
 import re 
 import os 
 
+#can be called anywhere. 
 global OutContent 
 OutContent = ""
-
-global allFileContents 
-allFileContents = ""
 
 def menu(arg, OutContent):
     line1 = "\nApache Log Analyser - Main Menu"
@@ -31,7 +29,7 @@ def succes_menu(arg, OutContent):
     line1 = "\nApache Log Analyser - Successful Requests Menu\n"
     print(line1)
     for letter in line1: #for each word in the variable print =  end = '' will print it horizontally
-        print('=',end='')      
+        print('=', end='')      
     print("\n1) How many total requests (Code 200)\n2) How many requests from Seneca (IPs starting with 142.204)\n3) How many requests for isomaster-1.3.13.tar.bz2\nq) Return to Main Menu\n")
     
     choice = input("Select an option [1-3] q to quit:")
@@ -158,9 +156,10 @@ def invalid_Apng(arg, OutContent):
 def main():
     
     if len(sys.argv)== 1: 
-        sys.exit("No arguments passed")
+        sys.exit("[+] No arguments passed [+]\nUsage: program.py [filenames]\noptional arguments:\n-d, --default            Skips to Total 200 Requests and exit")
     script = sys.argv[0]
     action = sys.argv[1]
+    
     if sys.argv[1] == '--default' or sys.argv[1] == '-d':
         filenames = sys.argv[2:]
     else:
@@ -179,7 +178,9 @@ def main():
             myfile.close()
             OutContent = OutContent + fileContent
         except OSError:
-            print("File could not be opened " + str(filenames))
+            print("File could not be opened " + str(filenames) + "\n")
+            print("Usage: program.py [filenames]\noptional arguments:\n-d, --default            Skips to Total 200 Requests and exit")
+            sys.exit()
            
     if action == '--default' or action == '-d':
         counter = 0 # set a counter to 0 
