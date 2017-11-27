@@ -21,6 +21,7 @@ def menu(arg, OutContent):
     if choice == "q":
         print("GoodBye!")
         sys.exit(0)
+    
     #if __name__ == "__main__": handles the "else" 
         
 ######################## Successful #######################  
@@ -160,7 +161,6 @@ def main():
         sys.exit("No arguments passed")
     script = sys.argv[0]
     action = sys.argv[1]
-    
     if sys.argv[1] == '--default' or sys.argv[1] == '-d':
         filenames = sys.argv[2:]
     else:
@@ -181,13 +181,7 @@ def main():
         except OSError:
             print("File could not be opened " + str(filenames))
            
-    if action == '--default':
-        counter = 0 # set a counter to 0 
-        for line in OutContent: #for each line in load if the " 200 " is found add 1 to the counter and repeat until done. 
-            if re.findall(r"\s\b200\b\s", line):
-                counter += 1
-        print("\nTotal of (Status Code) 200 request:", counter)
-    if action == '-d':
+    if action == '--default' or action == '-d':
         counter = 0 # set a counter to 0 
         for line in OutContent: #for each line in load if the " 200 " is found add 1 to the counter and repeat until done. 
             if re.findall(r"\s\b200\b\s", line):
@@ -196,6 +190,6 @@ def main():
     else:
         if sys.argv[1]:
             menu(arg,OutContent)
-       
+    
 if __name__ == "__main__":
     main()
