@@ -2,7 +2,6 @@ import sys
 import re 
 import os 
 
-#can be called anywhere. 
 global OutContent 
 OutContent = ""
 
@@ -19,13 +18,8 @@ def menu(arg, OutContent):
     if choice == "q":
         print("GoodBye!")
         sys.exit(0)
-    
-    #if __name__ == "__main__": handles the "else" 
-        
-######################## Successful #######################  
       
 def succes_menu(arg, OutContent):
-    
     line1 = "\nApache Log Analyser - Successful Requests Menu\n"
     print(line1)
     for letter in line1: #for each word in the variable print =  end = '' will print it horizontally
@@ -46,7 +40,6 @@ def succes_menu(arg, OutContent):
         succes_menu(arg, OutContent)
         
 def total_200(arg, OutContent):
-  
     counter = 0 # set a counter to 0 
     for line in OutContent or allFileContents: #for each line in load if the " 200 " is found add 1 to the counter and repeat until done. 
        if re.findall(r"\s\b200\b\s", line):
@@ -54,7 +47,6 @@ def total_200(arg, OutContent):
     print("\nTotal of (Status Code) 200 request:", counter)
 
 def senIP(arg, OutContent):
-    
     counter = 0 
     for line in OutContent or allFileContents:
         if re.findall(r"\b142.204\b", line):
@@ -62,7 +54,6 @@ def senIP(arg, OutContent):
     print("\nTotal of Requests from 142.204:",counter)
     
 def isoMaster(arg, OutContent):
-    
     counter = 0 #creates a counter to increment from starting from 0
     for line in OutContent or allFileContents:
         if re.findall(r"\bisomaster-1.3.13.tar.bz2\b", line): #finds all the requests that contain what is inside \b \b it will not look further to the rest of strings.
@@ -154,7 +145,6 @@ def invalid_Apng(arg, OutContent):
     print("\nTotal failed requests to /apng/assembler/data: ", counter, "\n")
     
 def main():
-    
     if len(sys.argv)== 1: 
         sys.exit("[+] No arguments passed [+]\nUsage: program.py [filenames]\noptional arguments:\n-d, --default            Skips to Total 200 Requests and exit")
     script = sys.argv[0]
@@ -171,7 +161,6 @@ def main():
     print("Loading Files....", filenames)
 
     for arg in filenames:
-        
         try:
             myfile = open(arg, "r")
             fileContent = myfile.readlines()
